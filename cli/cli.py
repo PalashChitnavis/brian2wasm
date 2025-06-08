@@ -4,11 +4,11 @@ import os
 
 def main():
     parser = argparse.ArgumentParser(
-        description="Brian2WASM CLI: Run Brian2 scripts with backend."
+        description="Brian2WASM CLI"
     )
     parser.add_argument(
         "script",
-        help="Path to the Python script to run (e.g., example.py)"
+        help="Path to the Python script to run"
     )
     args = parser.parse_args()
 
@@ -37,12 +37,14 @@ def main():
 
     # Inject the required lines at the top
     if has_html_file:
+        print(f"html file found: '{html_file_path}'")
         injection = (
             "from brian2 import *\n"
             "import brian2wasm\n"
             f"set_device('wasm_standalone', directory='{script_name}', html_file='{html_file}')\n"
         )
     else:
+        print(f"html file not found: using default html template")
         injection = (
             "from brian2 import *\n"
             "import brian2wasm\n"
@@ -56,7 +58,8 @@ def main():
 
     try:
         # Execute the modified script in memory with __file__ set
-        print(f"Script path: {os.path.abspath(script_path)}, Directory: {script_dir}")
+        print(f"Script path: {os.path.abspath(script_path)}")
+        print(f"Directory: {script_dir}")
         exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path)}
         exec(modified_script, exec_globals)
     except Exception as e:

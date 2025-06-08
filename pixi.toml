@@ -1,0 +1,23 @@
+[project]
+name = "brian2wasm"
+version = "0.1.0"
+description = "Brian2WASM environment setup"
+authors = ["Palash Chitnavis"]
+channels = ["conda-forge"]
+platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
+
+[dependencies]
+python = ">=3.10"
+emsdk = "*"
+pip = "*"
+setuptools = "*"
+wheel = "*"
+
+[pypi-dependencies]
+brian2 = "*"
+brian2wasm = { git = "https://github.com/brian-team/brian2wasm/", rev = "main", editable = true }
+
+
+[tasks]
+setup = "emsdk install latest && emsdk activate latest && pip install -e ."
+
