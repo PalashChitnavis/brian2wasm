@@ -1,8 +1,7 @@
 import argparse
 import sys
 import os
-import re # For regular expressions to parse the .sh file
-import shutil # For shutil.which to find executables
+
 
 
 def main():
