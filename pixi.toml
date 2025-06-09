@@ -15,9 +15,11 @@ wheel = "*"
 
 [pypi-dependencies]
 brian2 = "*"
-brian2wasm = { git = "https://github.com/brian-team/brian2wasm/", rev = "main", editable = true }
+brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm/tree/gsoc", rev = "main", editable = true }
 
 
 [tasks]
-setup = "emsdk install latest && emsdk activate latest && pip install -e ."
+setup = "emsdk install latest && emsdk activate latest"
+#brian2wasm = "bash -c 'source \"$(dirname $(which emsdk))/../opt/emsdk/emsdk_env.sh\" && brian2wasm \"$@\"'"
+
 
