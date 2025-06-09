@@ -19,3 +19,6 @@ brian2wasm = "cli.cli:main"
 
 [tool.setuptools]
 packages = ["brian2wasm", "cli"]
+
+[tool.setuptools.package-data]
+cli = ["activation.sh"]

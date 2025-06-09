@@ -16,11 +16,11 @@ wheel = "*"
 
 [pypi-dependencies]
 brian2 = "*"
-brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "gsoc", editable = true }
+brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "gsoc" }
 
 
 [tasks]
 setup = "emsdk install latest && emsdk activate latest"
 
 [activation]
-scripts = [".pixi/envs/default/lib/python3.13/site-packages/cli/act.sh"]
+scripts = [".pixi/envs/default/lib/python3.13/site-packages/cli/activation.sh"]
