@@ -5,7 +5,7 @@ import os
 def main():
 
     parser = argparse.ArgumentParser(
-        description="Random CLI"
+        description="Brian2WASM CLI"
     )
     parser.add_argument(
         "script",
