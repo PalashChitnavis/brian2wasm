@@ -2,8 +2,6 @@ import argparse
 import sys
 import os
 
-
-
 def main():
 
     parser = argparse.ArgumentParser(
@@ -42,14 +40,14 @@ def main():
     if has_html_file:
         print(f"html file found: '{html_file_path}'")
         injection = (
-            "from brian2 import *\n"
+            "from brian2 import set_device\n"
             "import brian2wasm\n"
             f"set_device('wasm_standalone', directory='{script_name}', html_file='{html_file}')\n"
         )
     else:
         print(f"html file not found: using default html template")
         injection = (
-            "from brian2 import *\n"
+            "from brian2 import set_device\n"
             "import brian2wasm\n"
             f"set_device('wasm_standalone', directory='{script_name}')\n"
         )

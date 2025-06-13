@@ -15,10 +15,4 @@ dependencies = [
 ]
 
 [project.scripts]
-brian2wasm = "cli.cli:main"
-
-[tool.setuptools]
-packages = ["brian2wasm", "cli"]
-
-[tool.setuptools.package-data]
-cli = ["activation.sh"]
+brian2wasm = "brian2wasm.__main__:main"
