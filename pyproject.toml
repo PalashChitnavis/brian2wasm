@@ -16,3 +16,6 @@ dependencies = [
 
 [project.scripts]
 brian2wasm = "brian2wasm.__main__:main"
+
+[tool.setuptools.package-data]
+setup = ["emsdk_setup.sh"]
