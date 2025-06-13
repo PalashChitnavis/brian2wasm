@@ -18,4 +18,4 @@ dependencies = [
 brian2wasm = "brian2wasm.__main__:main"
 
 [tool.setuptools.package-data]
-setup = ["emsdk_setup.sh"]
+brian2wasm = ["emsdk_setup.sh"]
