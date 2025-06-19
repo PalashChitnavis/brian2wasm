@@ -43,6 +43,10 @@ jobs:
       - name: Run setup
         run: pixi run setup
 
+      # Run set
+      - name: Run set
+        run: pixi run set
+
       # Check tool (emcc emrun emsdk python brian2wasm) availability with more detailed output
       - name: Verify tool availability
         run: |
