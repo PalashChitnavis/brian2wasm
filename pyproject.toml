@@ -33,7 +33,4 @@ platforms = ["linux-64", "osx-64", "osx-arm64"]
 [tool.pixi.tasks]
 setup = "emsdk install latest && emsdk activate latest"
 set = "bash .pixi/envs/default/lib/python3.13/site-packages/brian2wasm/emsdk_setup.sh"
-test = """
-which emcc || exit 1
-which emrun || exit 1
-"""
+test = "which emcc && which emrun"
