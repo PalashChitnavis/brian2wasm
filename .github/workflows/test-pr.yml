@@ -49,4 +49,4 @@ jobs:
 
       # Run test task (checks emcc and emrun)
       - name: Verify emcc and emrun availability
-        run: pixi run which emsdk brian2wasm
+        run: pixi run which emcc
