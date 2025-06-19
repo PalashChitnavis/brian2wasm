@@ -47,32 +47,23 @@ jobs:
       - name: Run set
         run: pixi run set
 
-      # Check tool (emcc emrun emsdk python brian2wasm) availability with more detailed output
+      # Simplified tool availability check
       - name: Verify tool availability
         run: |
-          pixi shell --command '
-            echo "### Tool Verification ###"
-            echo "Current PATH: $PATH"
-            echo ""
-            
-            tools=("emcc" "emrun" "emsdk" "python" "brian2wasm")
-            all_found=true
-            
-            for tool in "${tools[@]}"; do
-              if command -v "$tool" >/dev/null 2>&1; then
-                echo "✅ $tool found at: $(command -v "$tool")"
-                echo "   Version: $($tool --version 2>&1 | head -n 1 || echo "Version check failed")"
-              else
-                echo "❌ $tool not found in PATH"
-                all_found=false
-              fi
-              echo ""
-            done
-            
-            if ! $all_found; then
-              echo "Error: Some required tools are missing"
-              exit 1
-            else
-              echo "All tools are available"
-            fi
-          '
+          echo "### Tool Verification ###"
+          echo "Current PATH: $PATH"
+          echo ""
+          
+          # Check each tool and exit on first failure
+          which emcc || exit 1
+          which emrun || exit 1
+          which python || exit 1
+          which brian2wasm || exit 1
+          which emsdk || exit 1
+          
+          echo "All required tools are available in PATH"
+          echo "emcc: $(which emcc)"
+          echo "emrun: $(which emrun)"
+          echo "python: $(which python)"
+          echo "brian2wasm: $(which brian2wasm)"
+          echo "emsdk: $(which emsdk)"
