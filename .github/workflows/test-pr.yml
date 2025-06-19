@@ -49,4 +49,5 @@ jobs:
 
       # Run test task (checks emcc and emrun)
       - name: Verify emcc and emrun availability
-        shell: pixi run test
+      - run: | # everything here will be run inside of the pixi environment
+          shell: pixi run test
