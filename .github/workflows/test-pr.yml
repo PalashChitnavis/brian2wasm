@@ -51,4 +51,4 @@ jobs:
       - name: Verify emcc and emrun availability
         run: |
           command -v emcc >/dev/null 2>&1 && command -v emrun >/dev/null 2>&1
-        shell: pixi run bash -e {0}
+        shell: pixi run {0}
