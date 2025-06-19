@@ -49,4 +49,6 @@ jobs:
 
       # Run test task (checks emcc and emrun)
       - name: Verify emcc and emrun availability
-        run: command -v emcc >/dev/null 2>&1 && command -v emrun >/dev/null 2>&1
+        run: |
+          which emcc emrun
+        shell: pixi run bash -e {0}
