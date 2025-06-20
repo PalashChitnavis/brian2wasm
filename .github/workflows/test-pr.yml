@@ -43,6 +43,7 @@ jobs:
       - name: Run setup
         run: pixi run setup
 
+      # Check Dependencies
       - name: Check dependencies
-        run: which emcc emrun
-        shell: pixi run pwsh -Command {0}
+        run: which emcc emrun brian2wasm emsdk
+        shell: pixi run bash -e {0}
