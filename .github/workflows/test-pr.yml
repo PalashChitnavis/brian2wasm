@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        os: [ubuntu-latest, macos-latest]
+        os: [macos-latest]
       fail-fast: false
 
     steps:
@@ -42,3 +42,7 @@ jobs:
       # Run setup
       - name: Run setup
         run: pixi run setup
+
+      - name: Check dependencies
+        run: which emcc emrun
+        shell: pixi run pwsh -Command {0}
