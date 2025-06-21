@@ -30,11 +30,8 @@ brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "gso
 channels = ["conda-forge"]
 platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 
-[tool.pixi.target.unix.tasks]
+[tool.pixi.tasks]
 setup = "emsdk install latest && emsdk activate latest"
-
-[tool.pixi.target.win.tasks]
-setup = "emsdk.bat install latest && emsdk.bat activate latest"
 
 [tool.pixi.target.unix.activation]
 scripts = ["./brian2wasm/emsdk_setup.sh"]
