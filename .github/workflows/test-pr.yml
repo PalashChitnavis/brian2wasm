@@ -41,5 +41,5 @@ jobs:
 
       # Check Dependencies
       - name: Check dependencies
-        run: Get-Command emcc emrun brian2wasm emsdk
+        run: Get-Command emcc emrun brian2was emsdk
         shell: pixi run pwsh -Command {0}
