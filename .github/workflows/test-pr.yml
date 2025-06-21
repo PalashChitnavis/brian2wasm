@@ -12,8 +12,7 @@ jobs:
     timeout-minutes: 30
     strategy:
       matrix:
-        #os: [ubuntu-latest, macos-latest, windows-latest]
-        os: [windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
 
     steps:
@@ -41,5 +40,5 @@ jobs:
 
       # Check Dependencies
       - name: Check dependencies
-        run: Get-Command emcc emrun brian2was emsdk
-        shell: pixi run pwsh -Command {0}
+        run: which emcc emrun brian2wasm emsdk
+        shell: pixi run bash -e {0}
