@@ -14,3 +14,22 @@ if not exist "%EMSDK_ENV%" (
 echo Sourcing Emscripten environment...
 :: Run the environment script to set up PATH and other variables
 call "%EMSDK_ENV%"
+
+:: Check if emcc is available
+echo Checking for emcc...
+where emcc >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+  for /f "delims=" %%i in ('where emcc') do echo emcc found at: %%i
+) else (
+  echo emcc not found in PATH
+)
+
+:: Check if emrun is available
+echo Checking for emrun...
+where emrun >nul 2>&1
+if %ERRORLEVEL% equ 0 (
+  for /f "delims=" %%i in ('where emrun') do echo emrun found at: %%i
+) else (
+  echo emrun not found in PATH
+  exit /b 1
+)
