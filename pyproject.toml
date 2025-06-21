@@ -36,5 +36,5 @@ setup = "emsdk install latest && emsdk activate latest"
 [tool.pixi.activation]
 scripts = ["./brian2wasm/emsdk_setup.sh"]
 
-[target.win.tool.pixi.activation]
+[target.win-64.tool.pixi.activation]
 scripts = ["./brian2wasm/emsdk_setup.bat"]
