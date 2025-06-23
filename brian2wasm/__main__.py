@@ -11,6 +11,11 @@ def main():
         "script",
         help="Path to the Python script to run"
     )
+    parser.add_argument(
+        "--no-server",
+        action="store_true",
+        help="Generate files without starting the web server"
+    )
     args = parser.parse_args()
 
     script_path = args.script
@@ -61,7 +66,7 @@ def main():
         # Execute the modified script in memory with __file__ set
         print(f"Script path: {os.path.abspath(script_path)}")
         print(f"Directory: {script_dir}")
-        exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path)}
+        exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path),'no_server': args.no_server}
         exec(modified_script, exec_globals)
     except Exception as e:
         print(f"Error running script: {e}", file=sys.stderr)
