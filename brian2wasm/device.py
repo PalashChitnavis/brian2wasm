@@ -341,7 +341,7 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
                 shutil.copy(html_file, os.path.join(self.project_dir, 'index.html'))
 
         with in_directory(directory):
-            if hasattr(self,'no_server') and self.no_server:
+            if os.environ.get('BRIAN2WASM_NO_SERVER','0') == '1':
                 print("Skipping server startup (--no-server flag set)")
                 return
 

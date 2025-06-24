@@ -64,9 +64,11 @@ def main():
 
     try:
         # Execute the modified script in memory with __file__ set
+        if args.no_server:
+            os.environ['BRIAN2WASM_NO_SERVER'] = '1'
         print(f"Script path: {os.path.abspath(script_path)}")
         print(f"Directory: {script_dir}")
-        exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path),'no_server': args.no_server}
+        exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path)}
         exec(modified_script, exec_globals)
     except Exception as e:
         print(f"Error running script: {e}", file=sys.stderr)
