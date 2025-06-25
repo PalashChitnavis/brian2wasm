@@ -340,11 +340,11 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
             else:  # HTML file exists, copy it to the project directory
                 shutil.copy(html_file, os.path.join(self.project_dir, 'index.html'))
 
+        if os.environ.get('BRIAN2WASM_NO_SERVER', '0') == '1':
+            print("Skipping server startup (--no-server flag set)")
+            return
+
         with in_directory(directory):
-            print("Env:", dict(os.environ))
-            if os.environ.get('BRIAN2WASM_NO_SERVER','0') == '1':
-                print("Skipping server startup (--no-server flag set)")
-                return
 
             if prefs.devices.wasm_standalone.emsdk_directory:
                 emsdk_path = prefs.devices.wasm_standalone.emsdk_directory
