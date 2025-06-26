@@ -5,3 +5,5 @@ examples/output/
 .pixi
 *.egg-info
 pixi.lock
+brian2wasm/_version.py
+/dist
