@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "brian2wasm"
-dynamic = ["version"]
+dynamic = ["version", "readme"]
 description = "A WebAssembly backend for the Brian 2 simulator"
 keywords = ["wasm", "brian"]
 requires-python = ">=3.10"
@@ -49,7 +49,7 @@ fallback_version = "unknown"
 emsdk = "*"
 
 [tool.pixi.pypi-dependencies]
-brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "gsoc" }
+brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "pypi" }
 
 [tool.pixi.project]
 channels = ["conda-forge"]
