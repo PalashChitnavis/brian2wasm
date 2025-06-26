@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "brian2wasm"
-dynamic = ["version", "readme"]
+dynamic = ["version"]
 description = "A WebAssembly backend for the Brian 2 simulator"
 keywords = ["wasm", "brian"]
 requires-python = ">=3.10"
