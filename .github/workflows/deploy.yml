@@ -6,14 +6,14 @@ on:
     branches: [ main ]
 
 permissions:
-  contents: write 
+  contents: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
     env:
-      SCRIPT: examples/ornstein_uhlenbeck.py
+      SCRIPT: examples/ornstein_uhlenbeck.py   # 👈 user sets only this once
 
     steps:
       - name: Checkout code
@@ -30,11 +30,15 @@ jobs:
       - name: Run setup
         run: pixi run setup
 
-      - name: Derive folder name from script
+      - name: Derive folder paths
         id: derive
         run: |
-          NAME=$(basename "${SCRIPT%.py}")   # e.g. ornstein_uhlenbeck
-          echo "FOLDER=$NAME" >> $GITHUB_ENV
+          # remove .py extension
+          FOLDER_PATH="${SCRIPT%.py}"
+          # just the last folder name (e.g. ornstein_uhlenbeck)
+          FOLDER_NAME=$(basename "$FOLDER_PATH")
+          echo "FOLDER_PATH=$FOLDER_PATH" >> $GITHUB_ENV
+          echo "FOLDER_NAME=$FOLDER_NAME" >> $GITHUB_ENV
 
       - name: Generate simulation files
         run: |
@@ -46,10 +50,19 @@ jobs:
           git fetch origin gh-pages || true
           git checkout gh-pages || git checkout --orphan gh-pages
 
-          mkdir -p $FOLDER
-          cp -r examples/$FOLDER/* $FOLDER/
+          # cleanup old deployment of this folder
+          rm -rf $FOLDER_NAME
+          mkdir -p $FOLDER_NAME
 
-          git add $FOLDER
+          # copy only required files
+          cp $FOLDER_PATH/brian.js \
+             $FOLDER_PATH/index.html \
+             $FOLDER_PATH/wasm_module.js \
+             $FOLDER_PATH/wasm_module.wasm \
+             $FOLDER_PATH/worker.js \
+             $FOLDER_NAME/ || true
+
+          git add $FOLDER_NAME
           git -c user.name='github-actions' -c user.email='github-actions@github.com' \
-            commit -m "Deploy $FOLDER" || echo "No changes"
+            commit -m "Deploy $FOLDER_NAME" || echo "No changes"
           git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
