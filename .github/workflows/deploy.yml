@@ -1,25 +1,19 @@
 name: Deploy Brian2WASM Simulation to GitHub Pages
 
 on:
-  workflow_dispatch:      # run manually from Actions tab
+  workflow_dispatch:
   push:
-    branches: [ publish ]    # optional: only run on pushes to main
+    branches: [ main ]
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+  contents: write 
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+
+    env:
+      SCRIPT: examples/ornstein_uhlenbeck.py
 
     steps:
       - name: Checkout code
@@ -36,20 +30,26 @@ jobs:
       - name: Run setup
         run: pixi run setup
 
+      - name: Derive folder name from script
+        id: derive
+        run: |
+          NAME=$(basename "${SCRIPT%.py}")   # e.g. ornstein_uhlenbeck
+          echo "FOLDER=$NAME" >> $GITHUB_ENV
+
       - name: Generate simulation files
         run: |
-          cd examples
-          python -m brian2wasm ornstein_uhlenbeck.py --no-server
+          python -m brian2wasm $SCRIPT --no-server
         shell: pixi run bash -e {0}
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Deploy to gh-pages
+        run: |
+          git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout --orphan gh-pages
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: './examples/ornstein_uhlenbeck'
+          mkdir -p $FOLDER
+          cp -r examples/$FOLDER/* $FOLDER/
 
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          git add $FOLDER
+          git -c user.name='github-actions' -c user.email='github-actions@github.com' \
+            commit -m "Deploy $FOLDER" || echo "No changes"
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
