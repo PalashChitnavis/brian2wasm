@@ -1,0 +1,55 @@
+name: Deploy Brian2WASM Simulation to GitHub Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write 
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      SCRIPT: examples/ornstein_uhlenbeck.py
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install pixi
+        uses: prefix-dev/setup-pixi@v0.8.0
+        with:
+          cache: false
+
+      - name: Install dependencies
+        run: pixi install --locked
+
+      - name: Run setup
+        run: pixi run setup
+
+      - name: Derive folder name from script
+        id: derive
+        run: |
+          NAME=$(basename "${SCRIPT%.py}")   # e.g. ornstein_uhlenbeck
+          echo "FOLDER=$NAME" >> $GITHUB_ENV
+
+      - name: Generate simulation files
+        run: |
+          python -m brian2wasm $SCRIPT --no-server
+        shell: pixi run bash -e {0}
+
+      - name: Deploy to gh-pages
+        run: |
+          git fetch origin gh-pages || true
+          git checkout gh-pages || git checkout --orphan gh-pages
+
+          mkdir -p $FOLDER
+          cp -r examples/$FOLDER/* $FOLDER/
+
+          git add $FOLDER
+          git -c user.name='github-actions' -c user.email='github-actions@github.com' \
+            commit -m "Deploy $FOLDER" || echo "No changes"
+          git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
