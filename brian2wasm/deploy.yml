@@ -1,9 +1,9 @@
 name: Deploy Brian2WASM Simulation to GitHub Pages
 
 on:
+  workflow_dispatch:      # run manually from Actions tab
   push:
-    branches: [ publish ]
-  workflow_dispatch:
+    branches: [ publish ]    # optional: only run on pushes to main
 
 permissions:
   contents: read
@@ -37,9 +37,9 @@ jobs:
         run: pixi run setup
 
       - name: Generate simulation files
-        run: |  
-          cd examples  
-          python -m brian2wasm ./examples/ornstein_uhlenbeck.py --no-server
+        run: |
+          cd examples
+          python -m brian2wasm ornstein_uhlenbeck.py --no-server
         shell: pixi run bash -e {0}
 
       - name: Setup Pages
@@ -48,7 +48,7 @@ jobs:
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'your_script'
+          path: './examples/ornstein_uhlenbeck'
 
       - name: Deploy to GitHub Pages
         id: deployment
