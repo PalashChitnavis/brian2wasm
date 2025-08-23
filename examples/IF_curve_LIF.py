@@ -1,6 +1,4 @@
 from brian2 import *
-import brian2wasm
-set_device('wasm_standalone', directory='IF_curve_LIF')
 
 n = 1000
 duration = 1*second
