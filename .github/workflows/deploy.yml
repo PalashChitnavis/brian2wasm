@@ -64,7 +64,7 @@ jobs:
 
           echo "<html><body><h1>Simulations</h1><ul>" > index.html
           for d in */ ; do
-            if [ "$d" != "*/" ]; then
+            if [ -f "$d/index.html" ]; then
               NAME=$(basename "$d")
               echo "<li><a href=\"$NAME/\">$NAME</a></li>" >> index.html
             fi
