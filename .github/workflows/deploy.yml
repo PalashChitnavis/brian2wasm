@@ -1,9 +1,10 @@
 name: Deploy Brian2WASM Simulation to GitHub Pages
 
 on:
-  workflow_dispatch:
   push:
     branches: [ main ]
+    paths:
+      - ".github/workflows/deploy.yml"
 
 permissions:
   contents: write
@@ -13,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SCRIPT: examples/IF_curve_LIF.py  # 👈 user sets only this once
+      SCRIPT: path/to/your/script.py  # 👈 set this
 
     steps:
       - name: Checkout code
