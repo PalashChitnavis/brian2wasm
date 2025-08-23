@@ -62,14 +62,75 @@ jobs:
              $FOLDER_PATH/worker.js \
              $FOLDER_NAME/ || true
 
-          echo "<html><body><h1>Simulations</h1><ul>" > index.html
-          for d in */ ; do
-            if [ -f "$d/index.html" ]; then
-              NAME=$(basename "$d")
-              echo "<li><a href=\"$NAME/\">$NAME</a></li>" >> index.html
-            fi
-          done
-          echo "</ul></body></html>" >> index.html
+          # generate nice index.html
+          cat > index.html <<EOF
+          <!doctype html>
+          <html lang="en">
+          <head>
+            <meta charset="utf-8">
+            <title>${GITHUB_ACTOR}'s brian2wasm simulations</title>
+            <style>
+              body {
+                font-family: Arial, sans-serif;
+                margin: 40px auto;
+                max-width: 700px;
+                line-height: 1.5;
+                color: #333;
+                background: #fafafa;
+              }
+              h1 {
+                font-size: 1.6em;
+                text-align: center;
+                margin-bottom: 0.3em;
+                color: #222;
+              }
+              p {
+                text-align: center;
+                font-size: 0.95em;
+                margin-bottom: 1.2em;
+                color: #555;
+              }
+              ul {
+                list-style: none;
+                padding: 0;
+              }
+              li {
+                margin: 6px 0;
+              }
+              a {
+                display: inline-block;
+                padding: 6px 10px;
+                border-radius: 5px;
+                text-decoration: none;
+                color: #007acc;
+                background: #fff;
+                border: 1px solid #ddd;
+                transition: background 0.2s, color 0.2s;
+              }
+              a:hover {
+                background: #007acc;
+                color: #fff;
+              }
+            </style>
+          </head>
+          <body>
+            <h1>${GITHUB_ACTOR}'s brian2wasm simulations</h1>
+            <p>Select a simulation to view:</p>
+            <ul>
+          EOF
+          
+                    for d in */ ; do
+                      if [ -f "$d/index.html" ]; then
+                        NAME=$(basename "$d")
+                        echo "    <li><a href=\"$NAME/\">$NAME</a></li>" >> index.html
+                      fi
+                    done
+          
+                    cat >> index.html <<EOF
+            </ul>
+          </body>
+          </html>
+          EOF
 
           git add $FOLDER_NAME index.html
           git -c user.name='github-actions' -c user.email='github-actions@github.com' \
