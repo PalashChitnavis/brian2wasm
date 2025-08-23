@@ -62,7 +62,16 @@ jobs:
              $FOLDER_PATH/worker.js \
              $FOLDER_NAME/ || true
 
-          git add $FOLDER_NAME
+          echo "<html><body><h1>Simulations</h1><ul>" > index.html
+          for d in */ ; do
+            if [ "$d" != "*/" ]; then
+              NAME=$(basename "$d")
+              echo "<li><a href=\"$NAME/\">$NAME</a></li>" >> index.html
+            fi
+          done
+          echo "</ul></body></html>" >> index.html
+
+          git add $FOLDER_NAME index.html
           git -c user.name='github-actions' -c user.email='github-actions@github.com' \
             commit -m "Deploy $FOLDER_NAME" || echo "No changes"
           git push -f https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} gh-pages
