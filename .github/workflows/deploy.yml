@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SCRIPT: examples/ornstein_uhlenbeck.py   # 👈 user sets only this once
+      SCRIPT: examples/brunel_hakim1999_change_params.py   # 👈 user sets only this once
 
     steps:
       - name: Checkout code

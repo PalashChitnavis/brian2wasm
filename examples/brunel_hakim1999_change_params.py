@@ -1,6 +1,4 @@
 from brian2 import *
-import brian2wasm
-set_device('wasm_standalone', directory='brunel_hakim1999_change_params')
 N = 5000
 Vr = 10*mV
 theta = 20*mV
