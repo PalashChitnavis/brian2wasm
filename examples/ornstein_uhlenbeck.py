@@ -1,7 +1,5 @@
 # https://brian2.readthedocs.io/en/stable/examples/advanced.Ornstein_Uhlenbeck.html
 from brian2 import *
-import brian2wasm
-set_device('wasm_standalone', directory='ornstein_uhlenbeck')
 
 N = NeuronGroup(
     1,
