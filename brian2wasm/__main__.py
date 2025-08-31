@@ -5,6 +5,7 @@ import os
 import platform
 import subprocess
 
+
 def main():
     """
         Command-line interface for **Brian2Wasm**.
@@ -67,8 +68,8 @@ def main():
     parser.add_argument("--skip-install",
                         action="store_true",
                         help="Run Brian2WASM without installing/activating EMSDK"
-    )
-    
+                        )
+
     args = parser.parse_args()
 
     script_path = args.script
@@ -76,10 +77,10 @@ def main():
     # Check if the script exists and is a Python file
     if not os.path.isfile(script_path):
         full_path = os.path.abspath(script_path)
-        print(f"❌ Error: File '{full_path}' does not exist.", file=sys.stderr)
+        print(f"[ERROR] The specified file '{full_path}' does not exist.", file=sys.stderr)
         sys.exit(1)
     if not script_path.endswith(".py"):
-        print(f"❌ Error: File '{script_path}' is not a Python script (.py).", file=sys.stderr)
+        print(f"[ERROR] The file '{script_path}' is not a Python script (must end with .py).", file=sys.stderr)
         sys.exit(1)
 
     if not args.skip_install:
@@ -101,14 +102,14 @@ def main():
 
     # Inject required lines at the top
     if has_html_file:
-        print(f"✅ HTML file found: '{html_file_path}'")
+        print(f"[INFO] Found HTML template file: '{html_file_path}'")
         injection = (
             "from brian2 import set_device\n"
             "import brian2wasm\n"
             f"set_device('wasm_standalone', directory='{script_name}', html_file='{html_file}')\n"
         )
     else:
-        print("ℹ️  HTML file not found: using default HTML template.")
+        print(f"[INFO] No HTML template file found for '{script_name}'; using default HTML template.")
         injection = (
             "from brian2 import set_device\n"
             "import brian2wasm\n"
@@ -125,15 +126,14 @@ def main():
         if args.no_server:
             os.environ['BRIAN2WASM_NO_SERVER'] = '1'
 
-        print(f"Script path: {os.path.abspath(script_path)}")
-        print("This is the modified brian2wasm")
-        print(f"Directory: {script_dir}")
+        print(f"[INFO] Processing script: '{os.path.abspath(script_path)}'")
+        print(f"[INFO] Working directory set to: '{script_dir}'")
         exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path)}
         compiled_script = compile(modified_script, script_path, 'exec')
         exec(compiled_script, exec_globals)
 
     except Exception as e:
-        print(f"❌ Error running script: {e}", file=sys.stderr)
+        print(f"[ERROR] Failed to execute script: {e}", file=sys.stderr)
         sys.exit(1)
 
     finally:
@@ -145,40 +145,48 @@ def check_emsdk():
     conda_emsdk_dir = os.environ.get("CONDA_EMSDK_DIR")
 
     if not emsdk and not conda_emsdk_dir:
-        print("❌ EMSDK and CONDA_EMSDK_DIR not found. That means EMSDK is not installed.")
-        print("   ➤ If you are using **Pixi**, run:")
-        print("     pixi add emsdk && pixi install")
-        print("   ➤ If you are using **Conda**, run:")
-        print("     conda install emsdk -c conda-forge")
-        print("   ➤ Else refer to Emscripten documentation:")
-        print("     https://emscripten.org/index.html#")
+        print("[ERROR] EMSDK is not installed or CONDA_EMSDK_DIR is not set.", file=sys.stderr)
+        print("[INFO] To resolve this, install EMSDK using one of the following methods:", file=sys.stderr)
+        print("[INFO] For Pixi, run: pixi add emsdk && pixi install", file=sys.stderr)
+        print("[INFO] For Conda, run: conda install emsdk -c conda-forge", file=sys.stderr)
+        print("[INFO] Alternatively, refer to the Emscripten documentation: https://emscripten.org/index.html#",
+              file=sys.stderr)
         sys.exit(1)
 
-    print(f"✅ EMSDK is installed and CONDA_EMSDK_DIR is found")
+    print(f"[SUCCESS] EMSDK is installed and CONDA_EMSDK_DIR is set to: '{conda_emsdk_dir}'")
 
     try:
-        print("🔧 Attempting to activate EMSDK with: emsdk activate latest")
-        result = subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=False, capture_output=True, text=True)
+        print("[INFO] Activating EMSDK with command: emsdk activate latest")
+        result = subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=False,
+                                capture_output=True, text=True)
         if result.returncode != 0:
-            print("❌ Failed to activate EMSDK:")
-            choice = input("Do you want to install and activate EMSDK now? (y/n) ")
-            if choice == 'y':
+            print("[ERROR] Failed to activate EMSDK.", file=sys.stderr)
+            print("[INFO] Activation command output:", file=sys.stderr)
+            print(f"[INFO] stdout: {result.stdout}", file=sys.stderr)
+            print(f"[INFO] stderr: {result.stderr}", file=sys.stderr)
+            choice = input("[PROMPT] Do you want to install and activate EMSDK now? (y/n) ")
+            if choice.lower() == 'y':
                 try:
+                    print("[INFO] Installing EMSDK with command: emsdk install latest")
                     subprocess.run(["./emsdk", "install", "latest"], cwd=conda_emsdk_dir, check=True)
-                    print("✅ EMSDK install & activation succeeded. You can run the script now.")
+                    print("[INFO] Activating EMSDK with command: emsdk activate latest")
+                    subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=True)
+                    print("[SUCCESS] EMSDK installation and activation completed successfully.")
                 except subprocess.CalledProcessError as e:
-                    print("❌ Failed to activate EMSDK:")
-                    print("   ➤ Please run the following manually in your terminal and try again:")
-                    print("       cd $CONDA_EMSDK_DIR && ./emsdk install latest && ./emsdk activate latest")
+                    print(f"[ERROR] Failed to install or activate EMSDK: {e}", file=sys.stderr)
+                    print("[INFO] Please manually run the following commands in your terminal:", file=sys.stderr)
+                    print(f"[INFO] cd {conda_emsdk_dir} && ./emsdk install latest && ./emsdk activate latest",
+                          file=sys.stderr)
+                    sys.exit(1)
             else:
-                print("   ➤ Please run the following manually in your terminal and try again:")
-                print("       cd $CONDA_EMSDK_DIR && ./emsdk install latest && ./emsdk activate latest")
-
-            sys.exit(1)
+                print("[INFO] Please manually run the following commands in your terminal:", file=sys.stderr)
+                print(f"[INFO] cd {conda_emsdk_dir} && ./emsdk install latest && ./emsdk activate latest",
+                      file=sys.stderr)
+                sys.exit(1)
         else:
-            print("✅ EMSDK activation succeeded.")
+            print("[SUCCESS] EMSDK activation completed successfully.")
     except Exception as e:
-        print(f"❌ Error while running EMSDK activation: {e}")
+        print(f"[ERROR] Failed to run EMSDK activation: {e}", file=sys.stderr)
         sys.exit(1)
 
 
