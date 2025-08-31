@@ -574,7 +574,7 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
 
         if compile:
             print("hello")
-            self.compile_source(directory, compiler, debug, clean)
+            # self.compile_source(directory, compiler, debug, clean)
             print("hello to you")
             if run:
                 self.run(directory, results_directory, with_output, run_args)
