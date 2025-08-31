@@ -146,6 +146,7 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
             if not (os.environ.get("EMSDK", "")) or os.environ["EMSDK"] not in os.environ["PATH"]:
                 raise ValueError("Please provide the path to the emsdk directory in the preferences")
         if os.name == 'nt':
+            print("hello")
             makefile_tmp = self.code_object_class().templater.win_makefile(None, None,
                 source_files=source_files,
                 header_files=' '.join(sorted(writer.header_files)),
@@ -158,6 +159,7 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
                 rm_cmd=rm_cmd,
                 emsdk_path=emsdk_path,
                 emsdk_version=emsdk_version)
+            print("hello back to you")
         else:
             makefile_tmp = self.code_object_class().templater.makefile(None, None,
                 source_files=source_files,
