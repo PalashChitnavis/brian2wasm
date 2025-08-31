@@ -17,12 +17,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      # Set up Python 3.10
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
-
       # Install Pixi
       - name: Install pixi
         uses: prefix-dev/setup-pixi@v0.8.0
@@ -36,20 +30,6 @@ jobs:
       # Run pixi install
       - name: Install dependencies
         run: pixi install --locked
-
-      # Force uninstall brian2wasm
-      - name: Uninstall PyPI brian2wasm
-        run: pixi run pip uninstall brian2wasm -y
-        shell: bash
-        env:
-          SETUPTOOLS_SCM_PRETEND_VERSION: "0.0.0"
-
-      # Overwrite with local brian2wasm
-      - name: Overwrite with local brian2wasm
-        run: pixi run pip install . --upgrade --force-reinstall
-        shell: bash
-        env:
-          SETUPTOOLS_SCM_PRETEND_VERSION: "0.0.0"
 
       # Run setup
       - name: Run setup
