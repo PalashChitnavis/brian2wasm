@@ -47,7 +47,7 @@ platforms = ["linux-64", "osx-64", "osx-arm64", "win-64"]
 [tool.pixi.dependencies]
 python = ">=3.10"
 emsdk = "*"
-brian2wasm = { path = ".", editable = true }
+brian2wasm = { path = "."}
 
 [tool.pixi.pypi-dependencies]
 brian2 = ">=2.9.0"
