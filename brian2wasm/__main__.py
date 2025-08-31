@@ -5,7 +5,6 @@ import os
 import platform
 import subprocess
 
-
 def main():
     """
         Command-line interface for **Brian2Wasm**.
@@ -68,7 +67,7 @@ def main():
     parser.add_argument("--skip-install",
                         action="store_true",
                         help="Run Brian2WASM without installing/activating EMSDK"
-                        )
+    )
 
     args = parser.parse_args()
 
@@ -146,43 +145,35 @@ def check_emsdk():
 
     if not emsdk and not conda_emsdk_dir:
         print("[ERROR] EMSDK is not installed or CONDA_EMSDK_DIR is not set.", file=sys.stderr)
-        print("[INFO] To resolve this, install EMSDK using one of the following methods:", file=sys.stderr)
-        print("[INFO] For Pixi, run: pixi add emsdk && pixi install", file=sys.stderr)
-        print("[INFO] For Conda, run: conda install emsdk -c conda-forge", file=sys.stderr)
-        print("[INFO] Alternatively, refer to the Emscripten documentation: https://emscripten.org/index.html#",
-              file=sys.stderr)
+        print("   ➤ If you are using **Pixi**, run:")
+        print("     pixi add emsdk && pixi install")
+        print("   ➤ If you are using **Conda**, run:")
+        print("     conda install emsdk -c conda-forge")
+        print("   ➤ Else refer to Emscripten documentation:")
+        print("     https://emscripten.org/index.html#")
         sys.exit(1)
 
     print(f"[SUCCESS] EMSDK is installed and CONDA_EMSDK_DIR is set to: '{conda_emsdk_dir}'")
 
     try:
         print("[INFO] Activating EMSDK with command: emsdk activate latest")
-        result = subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=False,
-                                capture_output=True, text=True)
+        result = subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=False, capture_output=True, text=True)
         if result.returncode != 0:
             print("[ERROR] Failed to activate EMSDK.", file=sys.stderr)
-            print("[INFO] Activation command output:", file=sys.stderr)
-            print(f"[INFO] stdout: {result.stdout}", file=sys.stderr)
-            print(f"[INFO] stderr: {result.stderr}", file=sys.stderr)
-            choice = input("[PROMPT] Do you want to install and activate EMSDK now? (y/n) ")
-            if choice.lower() == 'y':
+            choice = input("Do you want to install and activate EMSDK now? (y/n) ")
+            if choice == 'y':
                 try:
-                    print("[INFO] Installing EMSDK with command: emsdk install latest")
                     subprocess.run(["./emsdk", "install", "latest"], cwd=conda_emsdk_dir, check=True)
-                    print("[INFO] Activating EMSDK with command: emsdk activate latest")
-                    subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=True)
                     print("[SUCCESS] EMSDK installation and activation completed successfully.")
                 except subprocess.CalledProcessError as e:
                     print(f"[ERROR] Failed to install or activate EMSDK: {e}", file=sys.stderr)
-                    print("[INFO] Please manually run the following commands in your terminal:", file=sys.stderr)
-                    print(f"[INFO] cd {conda_emsdk_dir} && ./emsdk install latest && ./emsdk activate latest",
-                          file=sys.stderr)
-                    sys.exit(1)
+                    print("   ➤ Please run the following manually in your terminal and try again:")
+                    print("       cd $CONDA_EMSDK_DIR && ./emsdk install latest && ./emsdk activate latest")
             else:
-                print("[INFO] Please manually run the following commands in your terminal:", file=sys.stderr)
-                print(f"[INFO] cd {conda_emsdk_dir} && ./emsdk install latest && ./emsdk activate latest",
-                      file=sys.stderr)
-                sys.exit(1)
+                print("   ➤ Please run the following manually in your terminal and try again:")
+                print("       cd $CONDA_EMSDK_DIR && ./emsdk install latest && ./emsdk activate latest")
+
+            sys.exit(1)
         else:
             print("[SUCCESS] EMSDK activation completed successfully.")
     except Exception as e:
