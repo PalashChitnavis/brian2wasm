@@ -38,7 +38,7 @@ readme = {file = "README.md", content-type = "text/markdown"}
 version_scheme = "post-release"
 local_scheme = "no-local-version"
 write_to = "brian2wasm/_version.py"
-fallback_version = "unknown"
+fallback_version = "0.4.2"
 
 [tool.pixi.project]
 channels = ["conda-forge"]
