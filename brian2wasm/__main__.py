@@ -2,7 +2,7 @@ import argparse
 import shutil
 import sys
 import os
-import platform
+import io
 import subprocess
 
 def main():
@@ -73,9 +73,15 @@ def main():
 
     script_path = args.script
 
-    # Set UTF-8 encoding for stdout and stderr to support emojis
-    sys.stdout.reconfigure(encoding='utf-8')
-    sys.stderr.reconfigure(encoding='utf-8')
+    # Force UTF-8 output (helps with Windows CMD/PowerShell)
+    sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
+    sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
+
+    # For Python 3.7+ you can also just do:
+    os.environ["PYTHONUTF8"] = "1"
+
+    if os.name == "nt":
+        os.system("chcp 65001 >nul")
 
     # Check if the script exists and is a Python file
     if not os.path.isfile(script_path):
