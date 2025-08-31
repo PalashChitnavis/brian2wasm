@@ -1,6 +1,6 @@
 name: Test PR on Linux, macOS and Windows
 
-on: [pull_request]
+on: [push]
 
 jobs:
   test:
@@ -30,6 +30,11 @@ jobs:
       # Run pixi install
       - name: Install dependencies
         run: pixi install --locked
+
+      # Overwrite with local brian2wasm
+      - name: Overwrite with local brian2wasm
+        run: pixi run pip install . --upgrade --force-reinstall
+        shell: bash
 
       # Run setup
       - name: Run setup

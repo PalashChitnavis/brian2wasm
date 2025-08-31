@@ -125,8 +125,9 @@ def main():
         if args.no_server:
             os.environ['BRIAN2WASM_NO_SERVER'] = '1'
 
-        print(f"📄 Script path: {os.path.abspath(script_path)}")
-        print(f"📁 Directory: {script_dir}")
+        print(f"Script path: {os.path.abspath(script_path)}")
+        print("This is the modified brian2wasm")
+        print(f"Directory: {script_dir}")
         exec_globals = {'__name__': '__main__', '__file__': os.path.abspath(script_path)}
         compiled_script = compile(modified_script, script_path, 'exec')
         exec(compiled_script, exec_globals)
