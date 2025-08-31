@@ -157,7 +157,7 @@ def check_emsdk():
     print(f"EMSDK is installed and CONDA_EMSDK_DIR is found")
 
     try:
-        print("🔧 Attempting to activate EMSDK with: emsdk activate latest")
+        print("Attempting to activate EMSDK with: emsdk activate latest")
         result = subprocess.run(["./emsdk", "activate", "latest"], cwd=conda_emsdk_dir, check=False,
                                 capture_output=True, text=True)
         if result.returncode != 0:
@@ -166,7 +166,6 @@ def check_emsdk():
             if choice == 'y':
                 try:
                     subprocess.run(["./emsdk", "install", "latest"], cwd=conda_emsdk_dir, check=True)
-                    print("[SUCCESS] EMSDK installation and activation completed successfully.")
                     print("EMSDK install & activation succeeded. You can run the script now.")
                 except subprocess.CalledProcessError as e:
                     print("Failed to activate EMSDK:")
