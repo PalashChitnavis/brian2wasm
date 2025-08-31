@@ -35,6 +35,8 @@ jobs:
       - name: Overwrite with local brian2wasm
         run: pixi run pip install . --upgrade --force-reinstall
         shell: bash
+        env:
+          SETUPTOOLS_SCM_PRETEND_VERSION: "0.0.0"
 
       # Run setup
       - name: Run setup
