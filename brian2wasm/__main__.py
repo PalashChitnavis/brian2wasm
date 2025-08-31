@@ -76,8 +76,6 @@ def main():
     # Force UTF-8 output (helps with Windows CMD/PowerShell)
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8')
-
-    # For Python 3.7+ you can also just do:
     os.environ["PYTHONUTF8"] = "1"
 
     if os.name == "nt":
