@@ -16,8 +16,6 @@ jobs:
       # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       # Install Pixi
       - name: Install pixi
@@ -46,6 +44,6 @@ jobs:
       - name: Run example and verify output files
         run: |
           cd examples
-          python -m brian2wasm brunel_hakim1999.py --no-server
+          python -m brian2wasm brunel_hakim1999.py --no-server --skip-install
           ls brunel_hakim1999/{brian.js,index.html,wasm_module.{js,wasm},worker.js}
         shell: pixi run bash -e {0}
