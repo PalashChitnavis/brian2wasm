@@ -13,17 +13,9 @@ jobs:
       fail-fast: false
 
     steps:
-      # Checkout the repository with full git history for setuptools_scm
+      # Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-
-      # Set up Python 3.10
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: '3.10'
 
       # Install Pixi
       - name: Install pixi
@@ -35,7 +27,7 @@ jobs:
       - name: Verify Pixi version
         run: pixi --version
 
-      # Run pixi install. The path dependency in pyproject.toml handles brian2wasm.
+      # Run pixi install
       - name: Install dependencies
         run: pixi install --locked
 
@@ -52,6 +44,6 @@ jobs:
       - name: Run example and verify output files
         run: |
           cd examples
-          python -m brian2wasm brunel_hakim1999.py --no-server --skip-install
+          python -m brian2wasm brunel_hakim1999.py --no-server
           ls brunel_hakim1999/{brian.js,index.html,wasm_module.{js,wasm},worker.js}
         shell: pixi run bash -e {0}
