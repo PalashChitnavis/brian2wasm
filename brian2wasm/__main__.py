@@ -73,6 +73,10 @@ def main():
 
     script_path = args.script
 
+    # Set UTF-8 encoding for stdout and stderr to support emojis
+    sys.stdout.reconfigure(encoding='utf-8')
+    sys.stderr.reconfigure(encoding='utf-8')
+
     # Check if the script exists and is a Python file
     if not os.path.isfile(script_path):
         full_path = os.path.abspath(script_path)
