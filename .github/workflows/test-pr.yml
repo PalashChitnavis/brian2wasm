@@ -38,6 +38,8 @@ jobs:
       # Run pixi install. The path dependency in pyproject.toml handles brian2wasm.
       - name: Install dependencies
         run: pixi install --locked
+        env:
+          SETUPTOOLS_SCM_PRETEND_VERSION: "0.0.0"
 
       # Run setup
       - name: Run setup
