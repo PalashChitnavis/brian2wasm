@@ -147,33 +147,47 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
             # Check whether EMSDK is already activated
             if not (os.environ.get("EMSDK", "")) or os.environ["EMSDK"] not in os.environ["PATH"]:
                 raise ValueError("Please provide the path to the emsdk directory in the preferences")
-        if os.name == 'nt':
-            makefile_tmp = self.code_object_class().templater.win_makefile(None, None,
-                source_files=source_files,
-                header_files=' '.join(sorted(writer.header_files)),
-                compiler_flags=compiler_flags,
-                compiler_debug_flags=compiler_debug_flags,
-                linker_debug_flags=linker_debug_flags,
-                linker_flags=linker_flags,
-                preloads=preloads,
-                preamble_file=preamble_file,
-                rm_cmd=rm_cmd,
-                emsdk_path=emsdk_path,
-                emsdk_version=emsdk_version)
-        else:
-            makefile_tmp = self.code_object_class().templater.makefile(None, None,
-                source_files=source_files,
-                header_files=' '.join(sorted(writer.header_files)),
-                compiler_flags=compiler_flags,
-                compiler_debug_flags=compiler_debug_flags,
-                linker_debug_flags=linker_debug_flags,
-                linker_flags=linker_flags,
-                preloads=preloads,
-                preamble_file=preamble_file,
-                rm_cmd=rm_cmd,
-                emsdk_path=emsdk_path,
-                emsdk_version=emsdk_version)
-        outputfile_name = 'win_makefile' if os.name == 'nt' else 'makefile'
+        # if os.name == 'nt':
+        #     makefile_tmp = self.code_object_class().templater.win_makefile(None, None,
+        #         source_files=source_files,
+        #         header_files=' '.join(sorted(writer.header_files)),
+        #         compiler_flags=compiler_flags,
+        #         compiler_debug_flags=compiler_debug_flags,
+        #         linker_debug_flags=linker_debug_flags,
+        #         linker_flags=linker_flags,
+        #         preloads=preloads,
+        #         preamble_file=preamble_file,
+        #         rm_cmd=rm_cmd,
+        #         emsdk_path=emsdk_path,
+        #         emsdk_version=emsdk_version)
+        # else:
+        #     makefile_tmp = self.code_object_class().templater.makefile(None, None,
+        #         source_files=source_files,
+        #         header_files=' '.join(sorted(writer.header_files)),
+        #         compiler_flags=compiler_flags,
+        #         compiler_debug_flags=compiler_debug_flags,
+        #         linker_debug_flags=linker_debug_flags,
+        #         linker_flags=linker_flags,
+        #         preloads=preloads,
+        #         preamble_file=preamble_file,
+        #         rm_cmd=rm_cmd,
+        #         emsdk_path=emsdk_path,
+        #         emsdk_version=emsdk_version)
+
+        makefile_tmp = self.code_object_class().templater.makefile(None, None,
+                                                                   source_files=source_files,
+                                                                   header_files=' '.join(sorted(writer.header_files)),
+                                                                   compiler_flags=compiler_flags,
+                                                                   compiler_debug_flags=compiler_debug_flags,
+                                                                   linker_debug_flags=linker_debug_flags,
+                                                                   linker_flags=linker_flags,
+                                                                   preloads=preloads,
+                                                                   preamble_file=preamble_file,
+                                                                   rm_cmd=rm_cmd,
+                                                                   emsdk_path=emsdk_path,
+                                                                   emsdk_version=emsdk_version)
+        # outputfile_name = 'win_makefile' if os.name == 'nt' else 'makefile'
+        outputfile_name = 'makefile'
         writer.write(outputfile_name, makefile_tmp)
 
     def copy_source_files(self, writer, directory):
@@ -492,11 +506,13 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
             os.path.abspath(os.path.join(directory, results_directory)), ""
         )
 
-        if os.name == "nt":
-            # Use msvc to trigger the win_makefile path in compile_source
-            compiler = "msvc"
-        else:
-            compiler = "emcc"
+        # if os.name == "nt":
+        #     # Use msvc to trigger the win_makefile path in compile_source
+        #     compiler = "msvc"
+        # else:
+        #     compiler = "emcc"
+
+        compiler = "emcc"
 
         extra_compile_args = self.extra_compile_args + prefs["devices.wasm_standalone.emcc_compile_args"]
         extra_link_args = self.extra_link_args + prefs["devices.wasm_standalone.emcc_link_args"]
