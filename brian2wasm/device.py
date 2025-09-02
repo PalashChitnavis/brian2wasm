@@ -492,7 +492,12 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
             os.path.abspath(os.path.join(directory, results_directory)), ""
         )
 
-        compiler = "emcc"
+        if os.name == "nt":
+            # Use msvc to trigger the win_makefile path in compile_source
+            compiler = "msvc"
+        else:
+            compiler = "emcc"
+
         extra_compile_args = self.extra_compile_args + prefs["devices.wasm_standalone.emcc_compile_args"]
         extra_link_args = self.extra_link_args + prefs["devices.wasm_standalone.emcc_link_args"]
 
@@ -589,96 +594,6 @@ class WASMStandaloneDevice(CPPStandaloneDevice):
             )
             if (k and tm[g][k] is not None) or (not k and tm[g] is not None)
         ))
-
-    def compile_source(self, directory, compiler, debug, clean):
-        """
-        Compile the generated source files in the given directory using Emscripten.
-
-        Parameters
-        ----------
-        directory : str
-            The directory containing the generated source files and Makefile.
-        compiler : str
-            The compiler to use (should be 'emcc' for WebAssembly).
-        debug : bool
-            Whether to include debug symbols and flags.
-        clean : bool
-            Whether to clean the build directory before compiling.
-        """
-
-        # Normalize directory path for platform compatibility
-        directory = os.path.normpath(directory)
-
-        with in_directory(directory):
-            # Verify Makefile exists
-            makefile_path = os.path.join(directory, 'Makefile' if os.name != 'nt' else 'win_makefile')
-            if not os.path.exists(makefile_path):
-                logger.error(
-                    "Makefile not found in directory '%s'. Ensure EMSDK is properly configured and generate_makefile was called successfully.",
-                    directory)
-                raise RuntimeError(
-                    "Project compilation failed: Makefile not found. Ensure EMSDK is installed and activated, and check generate_makefile logs. Consider running with 'clean=True'.")
-
-            # Ensure EMSDK is activated
-            emsdk_path = prefs.devices.wasm_standalone.emsdk_directory or os.environ.get("EMSDK") or os.environ.get(
-                "CONDA_EMSDK_DIR")
-            if not emsdk_path:
-                logger.error("EMSDK path not found in preferences or environment variables.")
-                raise RuntimeError(
-                    "EMSDK path not set. Please set 'devices.wasm_standalone.emsdk_directory' in preferences or EMSDK/CONDA_EMSDK_DIR environment variables.")
-
-            # Activate EMSDK if not already activated
-            if os.name == 'nt':
-                emsdk_env_cmd = os.path.join(emsdk_path, 'emsdk_env.bat')
-                activate_cmd = f'cmd.exe /C "{emsdk_env_cmd}"'
-            else:
-                emsdk_env_cmd = os.path.join(emsdk_path, 'emsdk_env.sh')
-                activate_cmd = f"/bin/bash -c 'source {emsdk_env_cmd}'"
-
-            try:
-                result = subprocess.run(activate_cmd, shell=True, capture_output=True, text=True, check=True)
-                logger.debug("EMSDK activation command output: stdout='%s', stderr='%s'", result.stdout, result.stderr)
-            except subprocess.CalledProcessError as e:
-                logger.error("Failed to activate EMSDK: %s", e)
-                raise RuntimeError(
-                    f"Failed to activate EMSDK: {e}. Ensure EMSDK is installed correctly and try again. Consider running with 'clean=True'.")
-
-            # Set up make command
-            make_cmd = 'make'  # Use MSYS2 make on Windows
-            make_args = ' '.join(prefs.devices.cpp_standalone.extra_make_args_unix)
-            if os.name == 'nt':
-                make_args = ' '.join(prefs.devices.cpp_standalone.extra_make_args_windows)
-
-            # Log debug information
-            logger.debug("Running make in directory '%s' with command: %s %s", directory, make_cmd, make_args)
-            if debug:
-                logger.debug("Debug mode enabled: including debug symbols and -DDEBUG flag")
-
-            # Execute make
-            with std_silent(debug):
-                if clean:
-                    start_time = time.time()
-                    clean_cmd = f"{make_cmd} clean"
-                    result = subprocess.run(clean_cmd, shell=True, capture_output=True, text=True)
-                    self.timers["compile"]["clean"] = time.time() - start_time
-                    if result.returncode != 0:
-                        logger.error("Make clean failed: stdout='%s', stderr='%s'", result.stdout, result.stderr)
-                        raise RuntimeError(
-                            f"Project clean failed (error code: {result.returncode}): {result.stderr}. Check logs for details and consider running with 'clean=True'.")
-
-                start_time = time.time()
-                build_cmd = f"{make_cmd} {make_args}"
-                result = subprocess.run(build_cmd, shell=True, capture_output=True, text=True)
-                self.timers["compile"]["make"] = time.time() - start_time
-
-                if result.returncode != 0:
-                    error_message = f"Project compilation failed (error code: {result.returncode}): {result.stderr}. Check logs for details."
-                    logger.error(error_message)
-                    raise RuntimeError(
-                        error_message + " Consider running with 'clean=True' to force a complete rebuild.")
-                else:
-                    logger.info("Project compilation succeeded.")
-
 
 
 wasm_standalone_device = WASMStandaloneDevice()
