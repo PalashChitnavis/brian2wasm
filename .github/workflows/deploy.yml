@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      SCRIPT: examples/IF_curve_LIF.py # 👈 set this
+      SCRIPT: examples/brunel_hakim1999.py # 👈 set this
 
     steps:
       - name: Checkout code
