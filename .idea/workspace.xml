@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f3071de6-403e-44ad-a7be-baf533fd3c5e" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.github/workflows/deploy.yml" beforeDir="false" afterPath="$PROJECT_DIR$/.github/workflows/deploy.yml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/examples/ornstein_uhlenbeck.py" beforeDir="false" afterPath="$PROJECT_DIR$/examples/ornstein_uhlenbeck.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="sphinx" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2yBTCbWxTJoHuBluPenGONJ5ek2" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Python.brunel_hakim1999.executor": "Run",
+    "Python.ornstein_uhlenbeck.executor": "Run",
+    "Python.ou.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "git-widget-placeholder": "deploy",
+    "last_opened_file_path": "/Users/palashchitnavis/Desktop/brian2wasm/.github/workflows",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/.github/workflows" />
+      <recent name="$PROJECT_DIR$/recipe" />
+      <recent name="$PROJECT_DIR$/brian2wasm/etc/conda/activate.d" />
+      <recent name="$PROJECT_DIR$/recipe/activate.d" />
+      <recent name="$PROJECT_DIR$/examples" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/docs/images" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-1632447f56bf-JavaScript-PY-243.25659.43" />
+        <option value="bundled-python-sdk-181015f7ab06-4df51de95216-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-243.25659.43" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f3071de6-403e-44ad-a7be-baf533fd3c5e" name="Changes" comment="" />
+      <created>1749306841549</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1749306841549</updated>
+      <workItem from="1749306841559" duration="10096000" />
+      <workItem from="1749397127361" duration="6038000" />
+      <workItem from="1749446933168" duration="13333000" />
+      <workItem from="1749484176810" duration="3280000" />
+      <workItem from="1749543955170" duration="2463000" />
+      <workItem from="1749629855817" duration="2405000" />
+      <workItem from="1749703292930" duration="6871000" />
+      <workItem from="1749795770061" duration="9469000" />
+      <workItem from="1750303189091" duration="16750000" />
+      <workItem from="1750402611189" duration="8991000" />
+      <workItem from="1750489486146" duration="13997000" />
+      <workItem from="1750695866422" duration="4200000" />
+      <workItem from="1750743764823" duration="11074000" />
+      <workItem from="1750839871337" duration="4407000" />
+      <workItem from="1750964522586" duration="6402000" />
+      <workItem from="1750999150185" duration="11189000" />
+      <workItem from="1751207403833" duration="1326000" />
+      <workItem from="1751529083596" duration="583000" />
+      <workItem from="1751960245749" duration="5783000" />
+      <workItem from="1752069751675" duration="1883000" />
+      <workItem from="1752163312686" duration="4091000" />
+      <workItem from="1752167509589" duration="4778000" />
+      <workItem from="1752172411185" duration="852000" />
+      <workItem from="1752328852407" duration="3755000" />
+      <workItem from="1752646980262" duration="16895000" />
+      <workItem from="1752764406735" duration="1145000" />
+      <workItem from="1752770531181" duration="4366000" />
+      <workItem from="1752826189659" duration="1556000" />
+      <workItem from="1753086962500" duration="13655000" />
+      <workItem from="1753602037328" duration="6514000" />
+      <workItem from="1753713705115" duration="2197000" />
+      <workItem from="1753764853850" duration="4845000" />
+      <workItem from="1754795379261" duration="11029000" />
+      <workItem from="1754817148036" duration="8704000" />
+      <workItem from="1754900550226" duration="18732000" />
+      <workItem from="1755484652474" duration="695000" />
+      <workItem from="1755485730574" duration="16000" />
+      <workItem from="1755507826267" duration="21000" />
+      <workItem from="1755578607772" duration="16017000" />
+      <workItem from="1755752849729" duration="2095000" />
+      <workItem from="1755853042719" duration="12266000" />
+      <workItem from="1756026422153" duration="3395000" />
+      <workItem from="1756110940391" duration="5439000" />
+      <workItem from="1756371826013" duration="6906000" />
+      <workItem from="1756611327034" duration="11730000" />
+      <workItem from="1756792168280" duration="964000" />
+      <workItem from="1756802121745" duration="589000" />
+      <workItem from="1756901179326" duration="1928000" />
+      <workItem from="1757060529251" duration="2072000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/brian2wasm$brunel_hakim1999.coverage" NAME="brunel_hakim1999 Coverage Results" MODIFIED="1750746395653" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/brian2wasm$ornstein_uhlenbeck.coverage" NAME="ornstein_uhlenbeck Coverage Results" MODIFIED="1749315082257" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/brian2wasm$ou.coverage" NAME="ou Coverage Results" MODIFIED="1749315119769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+    <SUITE FILE_PATH="coverage/device_py$brunel_hakim1999.coverage" NAME="brunel_hakim1999 Coverage Results" MODIFIED="1752070712606" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/examples" />
+  </component>
+</project>

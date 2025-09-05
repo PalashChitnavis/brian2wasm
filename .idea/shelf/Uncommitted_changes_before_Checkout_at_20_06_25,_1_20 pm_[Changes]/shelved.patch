@@ -1,0 +1,29 @@
+Index: pyproject.toml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>[build-system]\nrequires = [\"setuptools\"]\nbuild-backend = \"setuptools.build_meta\"\n\n[project]\nname = \"brian2wasm\"\nversion = \"0.0.1\"\ndescription = \"A WebAssembly backend for the Brian 2 simulator\"\nreadme = \"README.md\"\nrequires-python = \"==3.13\"\nkeywords = [\"wasm\", \"brian\"]\ndependencies = [\n    \"brian2==2.9.0\",\n    \"setuptools\",\n]\n\n[project.scripts]\nbrian2wasm = \"brian2wasm.__main__:main\"\n\n[tool.setuptools.package-data]\nbrian2wasm = [\"emsdk_setup.sh\"]\n\n[tool.pixi.dependencies]\nemsdk = \"*\"\n\n[tool.pixi.pypi-dependencies]\nbrian2wasm = { git = \"https://github.com/PalashChitnavis/brian2wasm\", rev = \"gsoc\" }\n\n[tool.pixi.project]\nchannels = [\"conda-forge\"]\nplatforms = [\"linux-64\", \"osx-64\", \"osx-arm64\"]\n\n[tool.pixi.tasks]\nsetup = \"emsdk install latest && emsdk activate latest\"\nset = \"bash .pixi/envs/default/lib/python3.13/site-packages/brian2wasm/emsdk_setup.sh\"
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pyproject.toml b/pyproject.toml
+--- a/pyproject.toml	(revision 3723fa0919a7e367b76f66d742fc72b23b8b2e51)
++++ b/pyproject.toml	(date 1750405817830)
+@@ -24,7 +24,7 @@
+ emsdk = "*"
+ 
+ [tool.pixi.pypi-dependencies]
+-brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "gsoc" }
++brian2wasm = { git = "https://github.com/PalashChitnavis/brian2wasm", rev = "pixi" }
+ 
+ [tool.pixi.project]
+ channels = ["conda-forge"]
+@@ -32,4 +32,6 @@
+ 
+ [tool.pixi.tasks]
+ setup = "emsdk install latest && emsdk activate latest"
+-set = "bash .pixi/envs/default/lib/python3.13/site-packages/brian2wasm/emsdk_setup.sh"
+\ No newline at end of file
++
++[tool.pixi.activation]
++scripts = ["./brian2wasm/emsdk_setup.sh"]
+\ No newline at end of file
