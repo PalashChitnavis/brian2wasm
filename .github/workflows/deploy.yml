@@ -65,7 +65,7 @@ jobs:
 
       - name: Rebuild main index.html
         run: |
-          TEMPLATE="brian2wasm/index_template.html"  # 👈 set this if you want your own
+          TEMPLATE="brian2wasm/index_template.html"  # 👈 Set this if you want your own template
           cp "$TEMPLATE" public/index.html
 
           LINKS=""

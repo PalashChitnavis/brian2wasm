@@ -1,6 +1,4 @@
 from brian2 import *
-import brian2wasm
-set_device('wasm_standalone')
 n = 1000
 duration = 1*second
 tau = 10*ms
