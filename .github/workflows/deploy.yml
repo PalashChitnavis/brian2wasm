@@ -41,16 +41,11 @@ jobs:
           python -m brian2wasm $SCRIPT --no-server
         shell: pixi run bash -e {0}
 
-      # 👇 Pull down existing gh-pages branch into ./public
+      # 👇 Fetch existing gh-pages branch directly into ./public
       - name: Fetch existing gh-pages
         run: |
           rm -rf public
-          mkdir -p public
-          git fetch origin gh-pages
-          git checkout origin/gh-pages -- .
-          mv ./* public/
-          mv ./.??* public/
-        shell: bash
+          git clone --branch gh-pages --depth 1 https://github.com/${{ github.repository }} public
 
       - name: Copy new simulation output
         run: |
@@ -67,16 +62,16 @@ jobs:
         run: |
           TEMPLATE="brian2wasm/index_template.html"  # 👈 set this if you want your own
           cp "$TEMPLATE" public/index.html
-      
+
           LINKS=""
-          for d in gh-pages-tmp/*/ ; do
+          for d in public/*/ ; do
             if [ -f "$d/index.html" ]; then
               NAME=$(basename "$d")
               LINKS="$LINKS    <li><a href=\"$NAME/\">$NAME</a></li>
-          "
+                    "
             fi
           done
-      
+
           sed -i "s/{{ACTOR}}/${GITHUB_ACTOR}/g" public/index.html
           sed -i "/{{LINKS}}/{
             s/{{LINKS}}//g
