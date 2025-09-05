@@ -117,7 +117,6 @@ int main(int argc, char **argv)
         _array_defaultclock_dt[0] = 0.0001;
         _array_defaultclock_dt[0] = 0.0001;
         _array_defaultclock_dt[0] = 0.0001;
-        _array_defaultclock_dt[0] = 0.0001;
         
                         
                         for(int i=0; i<_num__array_neurongroup_lastspike; i++)
