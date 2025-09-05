@@ -46,10 +46,10 @@ jobs:
         run: |
           rm -rf public
           mkdir -p public
-          git fetch origin gh-pages || true
-          git checkout origin/gh-pages -- . || true
-          mv ./* public/ || true
-          mv ./.??* public/ || true
+          git fetch origin gh-pages
+          git checkout origin/gh-pages -- .
+          mv ./* public/
+          mv ./.??* public/
         shell: bash
 
       - name: Copy new simulation output
