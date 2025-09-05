@@ -41,6 +41,11 @@ jobs:
           python -m brian2wasm $SCRIPT --no-server
         shell: pixi run bash -e {0}
 
+      - name: Debug generated files
+        run: |
+          echo "Checking generated files in $FOLDER_PATH"
+          ls -l $FOLDER_PATH
+
       # 👇 Fetch existing gh-pages branch directly into ./public
       - name: Fetch existing gh-pages
         run: |
